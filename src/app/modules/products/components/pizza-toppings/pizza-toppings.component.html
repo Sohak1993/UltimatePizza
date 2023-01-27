@@ -1,0 +1,13 @@
+<div class="pizza-toppings">
+
+    <button 
+      type="button"
+      class="pizza-toppings-item" 
+      *ngFor="let topping of toppings" 
+      [ngClass]="{'active' : selectedToppings$.getValue()[topping]}"
+      (click)="toggleTopping(topping)">
+        <img src="assets/img/toppings/singles/{{topping}}.svg">
+        {{topping}}
+    </button>
+
+</div>

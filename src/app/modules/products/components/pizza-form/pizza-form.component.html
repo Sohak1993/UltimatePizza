@@ -1,0 +1,62 @@
+<div class="pizza-form">
+  <form [formGroup]="form">
+  
+    <label>
+      <h4>Pizza name</h4>
+      <input 
+        type="text" 
+        formControlName="name"
+        placeholder="e.g. Pepperoni"
+        class="pizza-form__input"
+        [ngClass]="{'error' : form.get('name')?.errors?.['required'] || form.get('name')?.errors?.['whiteSpace']} ">
+      <div
+        *ngIf="form.get('name')?.errors?.['required'] || form.get('name')?.errors?.['whiteSpace']"
+        class="pizza-form__error">
+        <p>Pizza must have a name</p>
+      </div>
+    </label>
+  
+    <ng-content></ng-content>
+
+    <label>
+      <h4>Select toppings</h4>
+    </label>
+    <div class="pizza-form__list">
+
+      <app-pizza-toppings *ngIf="toppings"
+        formControlName="toppings"
+        [toppings]="toppings">
+      </app-pizza-toppings>
+
+    </div>
+
+    <div class="pizza-form__actions">
+      <button
+        *ngIf="!pizza"
+        type="submit"
+        class="btn btn__ok"
+        [disabled]="!form.valid"
+        (click)="onCreate()">
+        Create Pizza
+      </button>
+
+      <button
+        *ngIf="pizza"
+        type="button"
+        class="btn btn__ok"
+        [disabled]="!form.valid"
+        (click)="onUpdate()">
+        Save changes
+      </button>
+
+      <button
+        *ngIf="pizza"
+        type="submit"
+        class="btn btn__warning"
+        (click)="onDelete()">
+        Delete Pizza
+      </button>
+    </div>
+
+  </form>
+</div>
