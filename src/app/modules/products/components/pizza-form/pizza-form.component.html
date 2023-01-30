@@ -36,7 +36,7 @@
         type="submit"
         class="btn btn__ok"
         [disabled]="!form.valid"
-        (click)="onCreate()">
+        (click)="buttonClicked('create')">
         Create Pizza
       </button>
 
@@ -45,7 +45,7 @@
         type="button"
         class="btn btn__ok"
         [disabled]="!form.valid"
-        (click)="onUpdate()">
+        (click)="buttonClicked('update')">
         Save changes
       </button>
 
@@ -53,7 +53,7 @@
         *ngIf="pizza"
         type="submit"
         class="btn btn__warning"
-        (click)="onDelete()">
+        (click)="buttonClicked('remove')">
         Delete Pizza
       </button>
     </div>

@@ -1,5 +1,8 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnChanges, SimpleChanges, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl} from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { DeleteConfirmationComponent } from '../../modals/delete-confirmation/delete-confirmation.component';
 import { Pizza } from '../../models';
 
 type FormType = {
@@ -34,8 +37,9 @@ export class PizzaFormComponent implements OnChanges{
 
   public form: FormGroup<FormType>;
 
-  constructor() { 
+  constructor(private dialogRef: MatDialog) { 
     this.form = this.buildForm();
+
     this.form.valueChanges.subscribe((value) => {
       this.editPizza({
         ...value
@@ -43,7 +47,6 @@ export class PizzaFormComponent implements OnChanges{
     })
   }
 
-  // trigger quand Input change
   ngOnChanges(changes: SimpleChanges): void {
     if(changes['pizza'] && this.pizza)
       this.fillForm(this.pizza)
@@ -54,13 +57,6 @@ export class PizzaFormComponent implements OnChanges{
       name: new FormControl<string>('', [Validators.required, this.whiteSpaceValidator]),
       toppings: new FormControl<string[]>([], [Validators.required])
     });
-  }
-
-  // A déplacer 
-  private whiteSpaceValidator(control: AbstractControl): { [key: string]: boolean } |null {
-    if(control.value.trim() == "")
-      return {'whiteSpace' : true}
-    return null
   }
 
   private fillForm(pizza: Pizza) : void {
@@ -78,33 +74,37 @@ export class PizzaFormComponent implements OnChanges{
     }
   }
   
-  // Passer par un behaviorSubject ++ Demander avis Flavian
-  public onCreate() : void {
-    console.log("ee")
-    this.createPizza(this.fillObject());
-  }
-
-  public onUpdate() : void {
-    this.updatePizza(this.fillObject());
-  }
-
-  public onDelete() : void {
-    this.removePizza(this.fillObject());
+  public buttonClicked(key : string) : void {
+    switch(key){
+      case 'create':
+        this.create.emit(this.fillObject())
+        break
+      case 'update':
+        this.update.emit(this.fillObject())
+        break
+      case 'remove':
+        this.openDeleteConfirmationModal().subscribe(e => {
+          if(e.data)
+            this.remove.emit(this.fillObject())
+        })
+        break
+    }
   }
 
   public editPizza(pizza: Pizza) : void {
     this.edit.emit(pizza)
   }
 
-  public createPizza(pizza: Pizza) : void {
-    this.create.emit(pizza)
+  openDeleteConfirmationModal() : Observable<any>{
+    return this.dialogRef
+      .open(DeleteConfirmationComponent, {width: '250px', height: '150px'})
+      .afterClosed()
   }
 
-  public updatePizza(pizza: Pizza) : void {
-    this.update.emit(pizza)
-  }
-
-  public removePizza(pizza: Pizza) : void {
-    this.remove.emit(pizza)
+  // A déplacer 
+  private whiteSpaceValidator(control: AbstractControl): { [key: string]: boolean } |null {
+    if(control.value.trim() == "")
+      return {'whiteSpace' : true}
+    return null
   }
 }

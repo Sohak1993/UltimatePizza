@@ -15,17 +15,14 @@
   ],
   "pizzas": [
     {
-      "id": 1,
-      "name": "'r'r'\"\"\"\"\"",
+      "name": "teest",
       "toppings": [
-        "mozzarella",
-        "pepper",
+        "bacon",
         "mushroom",
-        "olive",
-        "tomato",
-        "onion",
-        "chili"
-      ]
+        "pepperoni",
+        "sweetcorn"
+      ],
+      "id": 1
     }
   ]
 }
