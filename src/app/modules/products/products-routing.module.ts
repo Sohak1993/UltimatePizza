@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import * as containers from './containers';
+import { ProductsAccessedGuard } from './guards/products-accessed.guard';
 
 const routes: Routes = [
     {
@@ -10,7 +11,11 @@ const routes: Routes = [
     },
     {
         path: ':id',
-        component: containers.ProductItemComponent,
+        component: containers.ProductItemComponent, canActivate: [ProductsAccessedGuard]
+    },
+    {
+        path: "**",
+        component: containers.ProductsComponent,
     }
 ];
 

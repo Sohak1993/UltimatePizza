@@ -22,7 +22,7 @@ export class ProductItemComponent {
     private _pizzasServcice : PizzasService,
     private _activeRoute : ActivatedRoute,
     private _router : Router
-  ) {
+  ){
       this.toppings$ = _toppingsService.getToppings();
 
       this.pizza$ = this._activeRoute.params.pipe(switchMap((params) => {

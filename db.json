@@ -15,14 +15,28 @@
   ],
   "pizzas": [
     {
-      "name": "teest",
+      "id": 1,
+      "name": "SuperPizza",
       "toppings": [
-        "bacon",
+        "sweetcorn",
+        "chili",
+        "onion",
+        "tomato"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "TestPizza",
+      "toppings": [
+        "anchovy",
+        "mozzarella",
         "mushroom",
-        "pepperoni",
-        "sweetcorn"
-      ],
-      "id": 1
+        "bacon",
+        "pepper",
+        "tomato",
+        "onion",
+        "chili"
+      ]
     }
   ]
 }

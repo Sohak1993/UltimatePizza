@@ -4,7 +4,12 @@
     </div>
     <div class="app__content">
         <div class="app__nav">
-            <a routerLink="products" routerLinkActive="active">Products</a>
+            <a 
+            routerLink="{{link.url}}" 
+            routerLinkActive="active" 
+            *ngFor="let link of links">
+                {{link.title}}
+            </a>
         </div>
         <div class="app__container">
             <router-outlet></router-outlet>

@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'af-workshop';
+
+  links = [
+    {title : "Products", url : "products" },
+    {title : "Profile", url : "profile" },
+  ]
 }
